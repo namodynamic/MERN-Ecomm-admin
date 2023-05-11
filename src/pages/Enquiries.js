@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { getEnquiries } from "../features/enquiry/enquirySlice";
+import { AiFillDelete } from "react-icons/ai";
+import Link from "antd/es/typography/Link";
 const columns = [
   {
     title: "S/N",
@@ -10,24 +14,55 @@ const columns = [
     dataIndex: "name",
   },
   {
-    title: "Product",
-    dataIndex: "product",
+    title: "Email",
+    dataIndex: "email",
   },
+  {
+    title: "Mobile",
+    dataIndex: "mobile",
+  },
+
   {
     title: "Status",
     dataIndex: "status",
   },
+  {
+    title: "Action",
+    dataIndex: "action",
+  },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: `Apple Laptop ${i}`,
-    status: 32,
-  });
-}
+
 const Enquiries = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getEnquiries());
+  }, [dispatch]);
+  const enquirystate = useSelector((state) => state.enquiry.enquiries);
+  const data1 = [];
+  if (enquirystate) {
+    for (let i = 0; i < enquirystate.length; i++) {
+      data1.push({
+        key: i + 1,
+        name: enquirystate[i].name,
+        email: enquirystate[i].email,
+        mobile: enquirystate[i].mobile,
+        status: (
+          <>
+            <select name="" className="form-control form-select" id="">
+              <option value="">Set Status</option>
+            </select>
+          </>
+        ),
+        action: (
+          <>
+            <Link className="ms-3 fs-3 text-danger" to="/">
+              <AiFillDelete />
+            </Link>
+          </>
+        ),
+      });
+    }
+  }
   return (
     <div>
       <h3 className="mb-4 title">Enquiries</h3>
