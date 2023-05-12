@@ -57,7 +57,7 @@ const Productlist = () => {
       key: i + 1,
       title: productstate[i].title,
       brand: productstate[i].brand,
-      color: productstate[i].color,
+      color: `${productstate[i].color}`,
       price: `${productstate[i].price}`,
       quantity: `${productstate[i].quantity}`,
       category: productstate[i].category,
