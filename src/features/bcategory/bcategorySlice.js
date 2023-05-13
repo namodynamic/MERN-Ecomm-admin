@@ -11,6 +11,16 @@ export const getBcategories = createAsyncThunk(
     }
   }
 );
+export const createBcategory = createAsyncThunk(
+  "blogcategory/create-category",
+  async (bcategoryData, thunkAPI) => {
+    try {
+      return await bcategoryService.createBcategory(bcategoryData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 const initialState = {
   bcategories: [],
   isError: false,
@@ -34,6 +44,21 @@ export const bcategorySlice = createSlice({
         state.bcategories = action.payload;
       })
       .addCase(getBcategories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(createBcategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createBcategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdBcategory = action.payload;
+      })
+      .addCase(createBcategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

@@ -99,10 +99,6 @@ const Addproduct = () => {
     setColor(e);
     console.log(color);
   };
-  const [desc, setDesc] = useState();
-  const handleDesc = (e) => {
-    setDesc(e.target.value);
-  };
 
   return (
     <div>

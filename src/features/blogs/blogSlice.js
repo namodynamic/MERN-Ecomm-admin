@@ -12,7 +12,7 @@ export const getBlogs = createAsyncThunk(
   }
 );
 export const createBlog = createAsyncThunk(
-  "blog/create-blog",
+  "blog/create-blogs",
   async (blogData, thunkAPI) => {
     try {
       return await blogService.createBlog(blogData);
