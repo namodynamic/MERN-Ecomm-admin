@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import { createBrand } from "../features/brand/brandSlice";
+import { createBrand, resetState } from "../features/brand/brandSlice";
 
 let userSchema = object({
   title: string().required("Brand name is required"),
@@ -33,7 +33,7 @@ const Addbrand = () => {
       dispatch(createBrand(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/brand-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

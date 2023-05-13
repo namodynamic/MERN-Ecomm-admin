@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import { createColor } from "../features/color/colorSlice";
+import { createColor, resetState } from "../features/color/colorSlice";
 
 let userSchema = object({
   title: string().required("Color is required"),
@@ -33,7 +33,7 @@ const Addcolor = () => {
       dispatch(createColor(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/color-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

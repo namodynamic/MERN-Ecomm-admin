@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import { createPcategory } from "../features/pcategory/pcategorySlice";
+import {
+  createPcategory,
+  resetState,
+} from "../features/pcategory/pcategorySlice";
 
 let userSchema = object({
   title: string().required("Category name is required"),
@@ -32,7 +35,7 @@ const Addcat = () => {
       dispatch(createPcategory(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/category-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

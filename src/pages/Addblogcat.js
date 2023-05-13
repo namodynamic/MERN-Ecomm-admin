@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
-import { createBcategory } from "../features/bcategory/bcategorySlice";
+import {
+  createBcategory,
+  resetState,
+} from "../features/bcategory/bcategorySlice";
 
 let userSchema = object({
   title: string().required("Blog category name is required"),
@@ -33,7 +36,7 @@ const Addblogcat = () => {
       dispatch(createBcategory(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/blog-category-list");
+        dispatch(resetState());
       }, 3000);
     },
   });

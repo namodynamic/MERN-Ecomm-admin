@@ -10,6 +10,8 @@ import { MdOutlineColorLens, MdNotifications } from "react-icons/md";
 import { SiBrandfolder } from "react-icons/si";
 import { FaClipboardList, FaBlogger, FaBlog } from "react-icons/fa";
 import { TbCategory2 } from "react-icons/tb";
+import { RiCoupon5Line } from "react-icons/ri";
+import { ImBlog } from "react-icons/im";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +27,7 @@ const MainLayout = () => {
   } = theme.useToken();
   const navigate = useNavigate();
   return (
-    <Layout>
+    <Layout /*onContextMenu={(e)=> e.preventDefault()}*/>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <h2 className="text-white text-center mb-0 fs-5 py-3">
@@ -105,6 +107,23 @@ const MainLayout = () => {
               key: "orders",
               icon: <FaClipboardList className="fs-5" />,
               label: "Orders",
+            },
+            {
+              key: "marketing",
+              icon: <RiCoupon5Line className="fs-5" />,
+              label: "Marketing",
+              children: [
+                {
+                  key: "coupon",
+                  icon: <ImBlog className="" />,
+                  label: "Add Coupon",
+                },
+                {
+                  key: "coupon-list",
+                  icon: <RiCoupon5Line className="" />,
+                  label: "Coupon List",
+                },
+              ],
             },
             {
               key: "blogs",

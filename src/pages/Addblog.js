@@ -10,7 +10,10 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../features/blogs/blogSlice";
-import { getBcategories } from "../features/bcategory/bcategorySlice";
+import {
+  getBcategories,
+  resetState,
+} from "../features/bcategory/bcategorySlice";
 
 let userSchema = object({
   title: string().required("Title is required"),
@@ -63,7 +66,7 @@ const Addblog = () => {
       dispatch(createBlog(values));
       formik.resetForm();
       setTimeout(() => {
-        navigate("/admin/blog-list");
+        dispatch(resetState());
       }, 3000);
     },
   });
