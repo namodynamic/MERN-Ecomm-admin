@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../features/pcategory/pcategorySlice";
-import Link from "antd/es/typography/Link";
+import {
+  deleteProductCategory,
+  getCategories,
+  resetState,
+} from "../features/pcategory/pcategorySlice";
+import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
+import CustomModal from "../components/CustomModal";
 const columns = [
   {
     title: "S/N",
@@ -23,8 +28,18 @@ const columns = [
 ];
 
 const Categorylist = () => {
+  const [open, setOpen] = useState(false);
+  const [pCategoryId, setpCategoryId] = useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setpCategoryId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(resetState());
     dispatch(getCategories());
   }, [dispatch]);
   const categorystate = useSelector((state) => state.pcategory.pcategories);
@@ -35,23 +50,43 @@ const Categorylist = () => {
       name: categorystate[i].title,
       action: (
         <>
-          <Link className="fs-3 text-warning" to="/">
+          <Link
+            className="fs-3 text-warning"
+            to={`/admin/category/${categorystate[i]._id}`}
+          >
             <BiEdit />
           </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/">
+          <button
+            className="ms-3 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(categorystate[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       ),
     });
   }
-
+  const delProductCategory = (e) => {
+    dispatch(deleteProductCategory(e));
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(getCategories());
+    }, 100);
+  };
   return (
     <div>
       <h3 className="mb-4 title">Product Categories</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          delProductCategory(pCategoryId);
+        }}
+        title="Are you sure you want to delete this product category?"
+      />
     </div>
   );
 };
