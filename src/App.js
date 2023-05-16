@@ -39,9 +39,11 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="coupon-list" element={<Couponlist />} />
           <Route path="coupon" element={<Addcoupon />} />
+          <Route path="coupon/:id" element={<Addcoupon />} />
           <Route path="customers" element={<Customers />} />
           <Route path="color-list" element={<Colorlist />} />
           <Route path="color" element={<Addcolor />} />
+          <Route path="color/:id" element={<Addcolor />} />
           <Route path="category-list" element={<Categorylist />} />
           <Route path="category" element={<Addcat />} />
           <Route path="category/:id" element={<Addcat />} />
