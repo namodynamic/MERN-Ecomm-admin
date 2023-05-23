@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrders } from "../features/auth/authSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import Link from "antd/es/typography/Link";
+import { Link } from "react-router-dom";
 const columns = [
   {
     title: "S/N",
@@ -36,7 +36,7 @@ const Orders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, []);
   const orderstate = useSelector((state) => state.auth.orders);
 
   const data1 = [];
@@ -45,13 +45,11 @@ const Orders = () => {
       data1.push({
         key: i + 1,
         name: orderstate[i].orderby.firstname,
-        product: orderstate[i].products.map((i, j) => {
-          return (
-            <ul key={j}>
-              <li>{i.product.title}</li>
-            </ul>
-          );
-        }),
+        product: (
+          <Link to={`/admin/order/${orderstate[i].orderby._id}`}>
+            View Orders
+          </Link>
+        ),
         amount: orderstate[i].paymentIntent.amount,
         date: new Date(orderstate[i].createdAt).toLocaleString(),
         action: (
