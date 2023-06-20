@@ -22,6 +22,7 @@ const Login = () => {
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
+      window.location.reload();
       dispatch(login(values));
     },
   });
@@ -36,6 +37,7 @@ const Login = () => {
       navigate("");
     }
   }, [user, isError, isSuccess, isLoading, navigate]);
+
   return (
     <div
       className="py-5"
@@ -75,14 +77,12 @@ const Login = () => {
             onCh={formik.handleChange("password")}
             onBlr={formik.handleBlur("password")}
           />
-          <div className="error">
+          <div className="error mt-2">
             {formik.touched.password && formik.errors.password ? (
               <div>{formik.errors.password}</div>
             ) : null}
           </div>
-          <div className="mb-3 text-end">
-            <Link to="/forgot-password">Forgot Password</Link>
-          </div>
+
           <button
             className="border-0 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5"
             style={{ background: " #192a51" }}

@@ -11,7 +11,6 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   messgae: "",
-  orderbyuser: [],
 };
 
 export const login = createAsyncThunk(
@@ -25,9 +24,31 @@ export const login = createAsyncThunk(
   }
 );
 
+export const getMonthlyData = createAsyncThunk(
+  "orders/monthlydata",
+  async (thunkAPI) => {
+    try {
+      return await authService.getMonthlyOrders();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getYearlyData = createAsyncThunk(
+  "orders/yearlydata",
+  async (thunkAPI) => {
+    try {
+      return await authService.getYearlyStats();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const getOrders = createAsyncThunk(
   "order/get-orders",
-  async (user, thunkAPI) => {
+  async (thunkAPI) => {
     try {
       return await authService.getOrders();
     } catch (error) {
@@ -35,11 +56,22 @@ export const getOrders = createAsyncThunk(
     }
   }
 );
-export const getOrderByUser = createAsyncThunk(
+export const getOrder = createAsyncThunk(
   "order/get-order",
   async (id, thunkAPI) => {
     try {
       return await authService.getOrder(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateAOrder = createAsyncThunk(
+  "order/update-order",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.updateOrder(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -80,15 +112,61 @@ export const authSlice = createSlice({
         state.isSuccess = false;
         state.user = null;
       })
-      .addCase(getOrderByUser.pending, (state) => {
+      .addCase(getOrder.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getOrderByUser.fulfilled, (state, action) => {
+      .addCase(getOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.orderbyuser = action.payload;
+        state.singleOrder = action.payload;
+        state.messgae = "success";
       })
-      .addCase(getOrderByUser.rejected, (state, action) => {
+      .addCase(getOrder.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(getMonthlyData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMonthlyData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.monthlyData = action.payload;
+        state.messgae = "success";
+      })
+      .addCase(getMonthlyData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(getYearlyData.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getYearlyData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.yearlyData = action.payload;
+        state.messgae = "success";
+      })
+      .addCase(getYearlyData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.user = null;
+      })
+      .addCase(updateAOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.updatedData = action.payload;
+        state.messgae = "success";
+      })
+      .addCase(updateAOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

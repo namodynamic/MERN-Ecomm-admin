@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdOutlineColorLens, MdNotifications } from "react-icons/md";
 import { SiBrandfolder } from "react-icons/si";
 import { FaClipboardList, FaBlogger, FaBlog } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
 import { TbCategory2 } from "react-icons/tb";
 import { RiCoupon5Line } from "react-icons/ri";
 import { ImBlog } from "react-icons/im";
@@ -32,7 +33,7 @@ const MainLayout = () => {
         <div className="logo">
           <h2 className="text-white text-center mb-0 fs-5 py-3">
             <span className="sm-logo">MS</span>
-            <span className="lg-logo">myShoplify.</span>
+            <span className="lg-logo">ADMIN.</span>
           </h2>
         </div>
         <Menu
@@ -41,6 +42,8 @@ const MainLayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
+              localStorage.clear();
+              window.location.reload();
             } else {
               navigate(key);
             }
@@ -156,6 +159,11 @@ const MainLayout = () => {
               key: "enquiries",
               icon: <FaClipboardList className="fs-5" />,
               label: "Enquiries",
+            },
+            {
+              key: "signout",
+              icon: <AiOutlineLogout className="fs-5" />,
+              label: "Sign Out",
             },
           ]}
         />

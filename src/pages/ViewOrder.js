@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrderByUser } from "../features/auth/authSlice";
+import { getOrder } from "../features/auth/authSlice";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
@@ -19,8 +19,8 @@ const columns = [
     dataIndex: "brand",
   },
   {
-    title: "Count",
-    dataIndex: "count",
+    title: "Quantity",
+    dataIndex: "quantity",
   },
   {
     title: "Color",
@@ -30,49 +30,27 @@ const columns = [
     title: "Amount",
     dataIndex: "amount",
   },
-  {
-    title: "Date",
-    dataIndex: "date",
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-  },
 ];
 
 const ViewOrder = () => {
   const location = useLocation();
-  const userId = location.pathname.split("/")[3];
+  const orderId = location.pathname.split("/")[3];
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOrderByUser(userId));
-  }, [dispatch, userId]);
+    dispatch(getOrder(orderId));
+  }, []);
 
-  const orderstate = useSelector(
-    (state) => state.auth.orderbyuser[0].products || []
-  );
+  const orderstate = useSelector((state) => state?.auth?.singleOrder?.orders);
 
   const data1 = [];
-  for (let i = 0; i < orderstate.length; i++) {
+  for (let i = 0; i < orderstate?.orderItems?.length; i++) {
     data1.push({
       key: i + 1,
-      name: orderstate[i].product && orderstate[i].product.title,
-      brand: orderstate[i].product && orderstate[i].product.brand,
-      count: orderstate[i].count,
-      amount: orderstate[i].product && orderstate[i].product.price,
-      color: orderstate[i].product && orderstate[i].product.color,
-      date: orderstate[i].product && orderstate[i].product.createdAt,
-
-      action: (
-        <>
-          <Link className="fs-3 text-warning" to="/">
-            <BiEdit />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/">
-            <AiFillDelete />
-          </Link>
-        </>
-      ),
+      name: orderstate.orderItems[i]?.product.title,
+      brand: orderstate.orderItems[i]?.product.brand,
+      quantity: orderstate.orderItems[i]?.quantity,
+      amount: orderstate.orderItems[i]?.price,
+      color: orderstate.orderItems[i]?.color?.title,
     });
   }
 
