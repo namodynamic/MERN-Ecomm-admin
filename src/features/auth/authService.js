@@ -14,9 +14,11 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 const login = async (userData) => {
-  const response = await axiosInstance.post("user/admin-login", userData);
+  const response = await axiosInstance.post(
+    `${base_url}user/admin-login`,
+    userData
+  );
   if (response.data) {
-    const token = response.data.token;
     localStorage.setItem("user", JSON.stringify(response.data));
   }
   return response.data;
