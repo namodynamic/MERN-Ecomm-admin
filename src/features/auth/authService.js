@@ -1,20 +1,9 @@
 import axios from "axios";
 import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/base_url";
-const axiosInstance = axios.create({
-  baseURL: base_url,
-  headers: config.headers,
-});
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("user")?.token;
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
-  return config;
-});
 
 const login = async (userData) => {
-  const response = await axiosInstance.post(
+  const response = await axios.post(
     `${base_url}user/admin-login`,
     userData
   );
@@ -25,7 +14,7 @@ const login = async (userData) => {
 };
 
 const getOrders = async () => {
-  const response = await axiosInstance.get(
+  const response = await axios.get(
     `${base_url}user/getAllorders`,
     config
   );
@@ -33,7 +22,7 @@ const getOrders = async () => {
   return response.data;
 };
 const getOrder = async (id) => {
-  const response = await axiosInstance.get(
+  const response = await axios.get(
     `${base_url}user/getsingleOrder/${id}`,
     config
   );
@@ -42,7 +31,7 @@ const getOrder = async (id) => {
 };
 
 const updateOrder = async (data) => {
-  const response = await axiosInstance.put(
+  const response = await axios.put(
     `${base_url}user/updateOrder/${data.id}`,
     { status: data.status },
     config
@@ -52,7 +41,7 @@ const updateOrder = async (data) => {
 };
 
 const getMonthlyOrders = async () => {
-  const response = await axiosInstance.get(
+  const response = await axios.get(
     `${base_url}user/getMonthWiseOrderIncome`,
     config
   );
@@ -61,7 +50,7 @@ const getMonthlyOrders = async () => {
 };
 
 const getYearlyStats = async () => {
-  const response = await axiosInstance.get(
+  const response = await axios.get(
     `${base_url}user/getYearlyOrders`,
     config
   );
