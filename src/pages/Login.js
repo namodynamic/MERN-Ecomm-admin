@@ -4,7 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/auth/authSlice";
+import {
+  getMonthlyData,
+  getOrders,
+  getYearlyData,
+  login,
+} from "../features/auth/authSlice";
 
 let userSchema = object({
   email: string()
@@ -22,7 +27,6 @@ const Login = () => {
     },
     validationSchema: userSchema,
     onSubmit: (values) => {
-      window.location.reload();
       dispatch(login(values));
     },
   });
@@ -33,10 +37,11 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess) {
       navigate("admin");
+      window.location.reload();
     } else {
       navigate("");
     }
-  }, [user, isError, isSuccess, isLoading, navigate]);
+  }, [user, isError, isSuccess, isLoading, navigate, navigate]);
 
   return (
     <div

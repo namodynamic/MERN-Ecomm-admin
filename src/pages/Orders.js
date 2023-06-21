@@ -61,7 +61,7 @@ const Orders = () => {
               className="form-control form-select"
               id=""
             >
-              <option value="Ordered" disabled selected>
+              <option value="" disabled>
                 Ordered
               </option>
               <option value="Processed">Processed</option>
