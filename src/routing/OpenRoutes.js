@@ -5,6 +5,6 @@ export const OpenRoutes = ({ children }) => {
   return getTokenFromLocalStorage?.token === undefined ? (
     children
   ) : (
-    <Navigate to="/" replace={true} />
+    <Navigate to="/admin" replace={true} />
   );
 };

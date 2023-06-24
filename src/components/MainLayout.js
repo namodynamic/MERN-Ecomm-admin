@@ -27,6 +27,7 @@ const MainLayout = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
+
   return (
     <Layout /*onContextMenu={(e)=> e.preventDefault()}*/>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -200,8 +201,8 @@ const MainLayout = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <h5 className="mb-0">Nnamdi</h5>
-                <p className="mb-0">nnamdi4u09@gmail.com</p>
+                <h5 className="mb-0">Admin</h5>
+                <p className="mb-0">admin@gmail.com</p>
               </div>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li>
