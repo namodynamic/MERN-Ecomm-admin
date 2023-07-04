@@ -66,11 +66,11 @@ const Brandlist = () => {
       ),
     });
   }
-  const delBrand = (e) => {
-    dispatch(deleteBrand(e));
+  const delBrand = async(e) => {
+    await dispatch(deleteBrand(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getBrands());
+    setTimeout(async() => {
+      await dispatch(getBrands());
     }, 100);
   };
   return (

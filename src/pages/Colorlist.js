@@ -66,11 +66,11 @@ const Colorlist = () => {
       });
     }
   }
-  const delColor = (e) => {
-    dispatch(deleteColor(e));
+  const delColor = async(e) => {
+    await dispatch(deleteColor(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getColors());
+    setTimeout(async() => {
+     await dispatch(getColors());
     }, 100);
   };
   return (

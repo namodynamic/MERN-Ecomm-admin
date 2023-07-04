@@ -65,11 +65,11 @@ const Bloglist = () => {
       ),
     });
   }
-  const delBlog = (e) => {
-    dispatch(deleteBlog(e));
+  const delBlog = async(e) => {
+    await dispatch(deleteBlog(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getBlogs());
+    setTimeout(async() => {
+      await dispatch(getBlogs());
     }, 100);
   };
   return (

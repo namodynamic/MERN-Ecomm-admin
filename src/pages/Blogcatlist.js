@@ -67,11 +67,11 @@ const Blogcatlist = () => {
       });
     }
   }
-  const delBlogCat = (e) => {
-    dispatch(deleteBcategory(e));
+  const delBlogCat = async(e) => {
+    await dispatch(deleteBcategory(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getBcategories());
+    setTimeout(async() => {
+     await dispatch(getBcategories());
     }, 100);
   };
   return (

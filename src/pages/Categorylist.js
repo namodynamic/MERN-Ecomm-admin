@@ -66,11 +66,11 @@ const Categorylist = () => {
       ),
     });
   }
-  const delProductCategory = (e) => {
-    dispatch(deleteProductCategory(e));
+  const delProductCategory = async(e) => {
+    await dispatch(deleteProductCategory(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getCategories());
+    setTimeout(async() => {
+      await dispatch(getCategories());
     }, 100);
   };
   return (

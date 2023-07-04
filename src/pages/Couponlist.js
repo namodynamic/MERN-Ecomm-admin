@@ -77,11 +77,11 @@ const Couponlist = () => {
       ),
     });
   }
-  const delCoupon = (e) => {
-    dispatch(deleteCoupon(e));
+  const delCoupon = async(e) => {
+    await dispatch(deleteCoupon(e));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getCoupons());
+    setTimeout(async() => {
+      await dispatch(getCoupons());
     }, 100);
   };
   return (
