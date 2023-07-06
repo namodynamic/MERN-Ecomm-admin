@@ -202,7 +202,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4 d-flex">
+      <div className="mt-4">
         <h3 className="mb-5 title">Recent Orders</h3>
         <div>
           <Table columns={columns} dataSource={ordersData} />
