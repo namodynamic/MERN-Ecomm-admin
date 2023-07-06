@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrders, updateAOrder } from "../features/auth/authSlice";
-import { BiEdit } from "react-icons/bi";
-import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 const columns = [
   {
@@ -54,16 +52,14 @@ const Orders = () => {
           <>
             <select
               name=""
-              defaultValue={orderstate[i]?.orderStatus}
+              value={orderstate[i]?.orderStatus}
               onChange={(e) =>
                 updateOrderStatus(orderstate[i]?._id, e.target.value)
               }
               className="form-control form-select"
               id=""
             >
-              <option value="" disabled>
-                Ordered
-              </option>
+              <option disabled>{orderstate[i]?.orderStatus}</option>
               <option value="Processed">Processed</option>
               <option value="Shipped">Shipped</option>
               <option value="Out for Delivery">Out for Delivery</option>

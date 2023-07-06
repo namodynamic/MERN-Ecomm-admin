@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -165,7 +164,7 @@ const Dashboard = () => {
   return (
     <div>
       <h3 className="mb-4 title">Dashboard</h3>
-      <div className="d-flex justify-content-between align-items-center gap-3">
+      <div className="d-flex  justify-content-between align-items-center gap-3">
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3">
           <div>
             <p className="desc">Total Income</p>
@@ -203,7 +202,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 d-flex">
         <h3 className="mb-5 title">Recent Orders</h3>
         <div>
           <Table columns={columns} dataSource={ordersData} />

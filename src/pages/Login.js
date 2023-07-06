@@ -1,15 +1,10 @@
 import React, { useEffect } from "react";
 import CustomInput from "../components/CustomInput";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getMonthlyData,
-  getOrders,
-  getYearlyData,
-  login,
-} from "../features/auth/authSlice";
+import { login } from "../features/auth/authSlice";
 
 let userSchema = object({
   email: string()
@@ -41,18 +36,14 @@ const Login = () => {
     } else {
       navigate("");
     }
-  }, [user, isError, isSuccess, isLoading, navigate, navigate]);
+  }, [user, isError, isSuccess, isLoading, navigate]);
 
   return (
     <div
-      className="py-5"
+      className="py-5 d-flex flex-column justify-content-center align-items-center"
       style={{ background: " #192a51", minHeight: "100vh" }}
     >
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
+      <div className="my-5 w-75 w-md-50 w-lg-25 bg-white rounded-3 p-4">
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to Your account to continue</p>
         <div className="error text-center">
